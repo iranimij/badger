@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/iranimij-badger/search" method="GET">
+        <service class="Iranimij\Badger\Api\BadgerRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="Iranimij_Badger::badger_manage"/>
+        </resources>
+    </route>
+    <route url="/V1/iranimij-badger/:badgerId" method="GET">
+        <service class="Iranimij\Badger\Api\BadgerRepositoryInterface" method="getById"/>
+        <resources>
+            <resource ref="Iranimij_Badger::badger_manage"/>
+        </resources>
+    </route>
+    <route url="/V1/iranimij-badger" method="POST">
+        <service class="Iranimij\Badger\Api\BadgerRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Iranimij_Badger::badger_manage"/>
+        </resources>
+    </route>
+    <route url="/V1/iranimij-badger/:badgerId" method="PUT">
+        <service class="Iranimij\Badger\Api\BadgerRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Iranimij_Badger::badger_manage"/>
+        </resources>
+    </route>
+    <route url="/V1/iranimij-badger/:badgerId" method="DELETE">
+        <service class="Iranimij\Badger\Api\BadgerRepositoryInterface" method="deleteById"/>
+        <resources>
+            <resource ref="Iranimij_Badger::badger_manage"/>
+        </resources>
+    </route>
+</routes>

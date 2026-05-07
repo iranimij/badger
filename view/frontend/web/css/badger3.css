@@ -1,0 +1,66 @@
+/* Category grid: give the card a stacking context so the badge stack overlays the image */
+.products-grid .product-item-info,
+.products-list .product-item-info,
+.widget-product-grid .product-item-info,
+.block-viewed-products-grid .product-item-info,
+.block-new-products-grid .product-item-info {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Remove Luma's position:relative on details so badge stack floats up to product-item-info */
+.product-item-details:has(.iranimij-badger-stack) {
+    position: static !important;
+}
+
+/* Luma sets position:relative + overflow:hidden on a.product-item-photo.
+   When the browser parser places the badge stack inside the anchor (HTML parsing behaviour),
+   the anchor becomes the containing block instead of product-item-info.
+   Making it static lets the absolute stack escape to product-item-info. */
+a.product-item-photo:has(> .iranimij-badger-stack) {
+    position: static !important;
+    overflow: visible !important;
+}
+
+.iranimij-badger-stack {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.iranimij-badger {
+    position: absolute;
+    pointer-events: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 50%;
+    max-height: 50%;
+}
+
+.iranimij-badger img { width: 100%; height: auto; display: block; }
+
+.iranimij-badger__label {
+    font-weight: 700;
+    font-size: 12px;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    border-radius: inherit;
+}
+
+.iranimij-badger--top-left { top: 0; left: 0; }
+.iranimij-badger--top-center { top: 0; left: 50%; transform: translateX(-50%); }
+.iranimij-badger--top-right { top: 0; right: 0; }
+.iranimij-badger--middle-left { top: 50%; left: 0; transform: translateY(-50%); }
+.iranimij-badger--middle-center { top: 50%; left: 50%; transform: translate(-50%, -50%); }
+.iranimij-badger--middle-right { top: 50%; right: 0; transform: translateY(-50%); }
+.iranimij-badger--bottom-left { bottom: 0; left: 0; }
+.iranimij-badger--bottom-center { bottom: 0; left: 50%; transform: translateX(-50%); }
+.iranimij-badger--bottom-right { bottom: 0; right: 0; }
+
+.iranimij-badger--shape-circle { border-radius: 50%; }
+.iranimij-badger--shape-rounded_rect { border-radius: 6px; }

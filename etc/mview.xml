@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Mview/etc/mview.xsd">
+    <view id="iranimij_badger_index" class="Iranimij\Badger\Model\Indexer\BadgerIndexer" group="indexer">
+        <subscriptions>
+            <table name="iranimij_badger_entity" entity_column="badger_id"/>
+            <table name="catalog_product_entity" entity_column="entity_id"/>
+            <table name="catalog_product_index_price" entity_column="entity_id"/>
+            <table name="cataloginventory_stock_status" entity_column="product_id"/>
+        </subscriptions>
+    </view>
+</config>

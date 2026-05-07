@@ -1,0 +1,10 @@
+<?php
+/** @var \Iranimij\Badger\Block\Surface\TooltipBlock $block */
+if (!$block->isEnabled()) {
+    return;
+}
+?>
+<div class="iranimij-badger-tooltip"
+     data-bg="<?= $block->escapeHtmlAttr($block->getDefaultBackgroundColor()) ?>"
+     data-fg="<?= $block->escapeHtmlAttr($block->getDefaultTextColor()) ?>"
+     data-mage-init='{"iranimijBadgerTooltip": {}}'></div>

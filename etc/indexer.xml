@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Indexer/etc/indexer.xsd">
+    <indexer id="iranimij_badger_index" view_id="iranimij_badger_index"
+             class="Iranimij\Badger\Model\Indexer\BadgerIndexer">
+        <title translate="true">Iranimij Badger Index</title>
+        <description translate="true">Index of badger / product / store / group eligibility</description>
+    </indexer>
+</config>

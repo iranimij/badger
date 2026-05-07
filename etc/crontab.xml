@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job name="iranimij_badger_activate" instance="Iranimij\Badger\Cron\ActivateScheduled" method="execute">
+            <schedule>*/15 * * * *</schedule>
+        </job>
+        <job name="iranimij_badger_deactivate" instance="Iranimij\Badger\Cron\DeactivateExpired" method="execute">
+            <schedule>*/15 * * * *</schedule>
+        </job>
+        <job name="iranimij_badger_isnew_refresh" instance="Iranimij\Badger\Cron\RefreshIsNewCache" method="execute">
+            <schedule>0 2 * * *</schedule>
+        </job>
+    </group>
+</config>

@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">iranimij_badger_form.iranimij_badger_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Badger</item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="back" class="Iranimij\Badger\Block\Adminhtml\Badger\Button\BackButton"/>
+            <button name="delete" class="Iranimij\Badger\Block\Adminhtml\Badger\Button\DeleteButton"/>
+            <button name="save" class="Iranimij\Badger\Block\Adminhtml\Badger\Button\SaveButton"/>
+            <button name="save_and_continue" class="Iranimij\Badger\Block\Adminhtml\Badger\Button\SaveAndContinueButton"/>
+        </buttons>
+        <namespace>iranimij_badger_form</namespace>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>iranimij_badger_form.iranimij_badger_form_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="iranimij_badger_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <submitUrl path="badger/badger/save"/>
+        </settings>
+        <dataProvider class="Iranimij\Badger\Ui\DataProvider\BadgerFormDataProvider" name="iranimij_badger_form_data_source">
+            <settings>
+                <requestFieldName>badger_id</requestFieldName>
+                <primaryFieldName>badger_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <fieldset name="general">
+        <settings>
+            <label translate="true">General</label>
+        </settings>
+        <field name="badger_id" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">badger</item>
+                </item>
+            </argument>
+            <settings>
+                <visible>false</visible>
+                <dataType>text</dataType>
+                <dataScope>badger_id</dataScope>
+            </settings>
+        </field>
+        <field name="name" formElement="input" sortOrder="10">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Name</label>
+                <dataScope>name</dataScope>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="is_enabled" formElement="checkbox" sortOrder="20">
+            <settings>
+                <dataType>boolean</dataType>
+                <label translate="true">Enabled</label>
+                <dataScope>is_enabled</dataScope>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="true" xsi:type="number">1</map>
+                            <map name="false" xsi:type="number">0</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+        <field name="priority" formElement="input" sortOrder="30">
+            <settings>
+                <dataType>number</dataType>
+                <label translate="true">Priority</label>
+                <dataScope>priority</dataScope>
+                <notice translate="true">Higher priority wins when exclusive badgers compete.</notice>
+            </settings>
+        </field>
+        <field name="is_exclusive" formElement="checkbox" sortOrder="40">
+            <settings>
+                <dataType>boolean</dataType>
+                <label translate="true">Exclusive</label>
+                <dataScope>is_exclusive</dataScope>
+                <notice translate="true">If enabled, suppresses lower-priority badgers on the same surface.</notice>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="true" xsi:type="number">1</map>
+                            <map name="false" xsi:type="number">0</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+        <field name="use_for_parent" formElement="checkbox" sortOrder="50">
+            <settings>
+                <dataType>boolean</dataType>
+                <label translate="true">Use for Parent</label>
+                <dataScope>use_for_parent</dataScope>
+                <notice translate="true">Bubble a child product's badger up to the configurable parent.</notice>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="true" xsi:type="number">1</map>
+                            <map name="false" xsi:type="number">0</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+    </fieldset>
+
+    <fieldset name="schedule">
+        <settings>
+            <label translate="true">Schedule</label>
+            <collapsible>true</collapsible>
+        </settings>
+        <field name="active_from" formElement="date" sortOrder="10">
+            <settings>
+                <dataType>date</dataType>
+                <label translate="true">Active From</label>
+                <dataScope>active_from</dataScope>
+            </settings>
+        </field>
+        <field name="active_to" formElement="date" sortOrder="20">
+            <settings>
+                <dataType>date</dataType>
+                <label translate="true">Active To</label>
+                <dataScope>active_to</dataScope>
+            </settings>
+        </field>
+    </fieldset>
+
+    <fieldset name="visibility">
+        <settings>
+            <label translate="true">Visibility</label>
+            <collapsible>true</collapsible>
+        </settings>
+        <field name="store_ids" formElement="multiselect" sortOrder="10">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Iranimij\Badger\Model\Source\Stores</item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Store Views</label>
+                <dataScope>store_ids</dataScope>
+            </settings>
+        </field>
+        <field name="customer_group_ids" formElement="multiselect" sortOrder="20">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Iranimij\Badger\Model\Source\CustomerGroups</item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Customer Groups</label>
+                <dataScope>customer_group_ids</dataScope>
+            </settings>
+        </field>
+    </fieldset>
+
+    <fieldset name="visual">
+        <settings>
+            <label translate="true">Visuals</label>
+            <collapsible>true</collapsible>
+        </settings>
+        <dynamicRows name="visuals_container">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="renderDefaultRecord" xsi:type="boolean">false</item>
+                    <item name="template" xsi:type="string">Iranimij_Badger/dynamic-rows/visual-rows</item>
+                    <item name="columnsHeader" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+            <settings>
+                <addButtonLabel translate="true">Add Visual</addButtonLabel>
+                <dataScope>visuals</dataScope>
+                <componentType>dynamicRows</componentType>
+            </settings>
+            <container name="record" component="Iranimij_Badger/js/dynamic-rows/visual-record">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="componentType" xsi:type="string">container</item>
+                        <item name="isTemplate" xsi:type="boolean">true</item>
+                        <item name="is_collection" xsi:type="boolean">true</item>
+                    </item>
+                </argument>
+                <field name="surface" formElement="select" sortOrder="10">
+                    <argument name="data" xsi:type="array">
+                        <item name="options" xsi:type="object">Iranimij\Badger\Model\Source\Surface</item>
+                    </argument>
+                    <settings>
+                        <dataType>number</dataType>
+                        <label translate="true">Surface</label>
+                    </settings>
+                </field>
+                <field name="shape_kind" formElement="select" sortOrder="20">
+                    <argument name="data" xsi:type="array">
+                        <item name="options" xsi:type="object">Iranimij\Badger\Model\Source\ShapeKind</item>
+                    </argument>
+                    <settings>
+                        <dataType>number</dataType>
+                        <label translate="true">Shape</label>
+                    </settings>
+                </field>
+                <field name="placement" formElement="select" sortOrder="30">
+                    <argument name="data" xsi:type="array">
+                        <item name="options" xsi:type="object">Iranimij\Badger\Model\Source\Placement</item>
+                    </argument>
+                    <settings>
+                        <dataType>number</dataType>
+                        <label translate="true">Placement</label>
+                    </settings>
+                </field>
+                <field name="size_percent" formElement="input" sortOrder="40">
+                    <settings>
+                        <dataType>number</dataType>
+                        <label translate="true">Size %</label>
+                    </settings>
+                </field>
+                <field name="label_text" formElement="input" sortOrder="50">
+                    <settings>
+                        <dataType>text</dataType>
+                        <label translate="true">Label Text</label>
+                    </settings>
+                </field>
+                <field name="bg_color" formElement="colorPicker" sortOrder="60">
+                    <settings>
+                        <dataType>text</dataType>
+                        <label translate="true">Background Color</label>
+                        <componentType>colorPicker</componentType>
+                    </settings>
+                    <formElements>
+                        <colorPicker>
+                            <settings>
+                                <colorPickerMode>full</colorPickerMode>
+                                <colorFormat>hex</colorFormat>
+                            </settings>
+                        </colorPicker>
+                    </formElements>
+                </field>
+                <field name="text_color" formElement="colorPicker" sortOrder="70">
+                    <settings>
+                        <dataType>text</dataType>
+                        <label translate="true">Text Color</label>
+                        <componentType>colorPicker</componentType>
+                    </settings>
+                    <formElements>
+                        <colorPicker>
+                            <settings>
+                                <colorPickerMode>full</colorPickerMode>
+                                <colorFormat>hex</colorFormat>
+                            </settings>
+                        </colorPicker>
+                    </formElements>
+                </field>
+                <field name="image_path" formElement="input" sortOrder="50">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="component" xsi:type="string">Iranimij_Badger/js/form/element/visual-image-field</item>
+                            <item name="template" xsi:type="string">Iranimij_Badger/form/element/visual-image-field</item>
+                            <item name="uploadUrl" xsi:type="string"></item>
+                            <item name="predefinedUrl" xsi:type="string"></item>
+                            <item name="mediaBaseUrl" xsi:type="string"></item>
+                            <item name="visible" xsi:type="boolean">false</item>
+                        </item>
+                    </argument>
+                    <settings>
+                        <dataType>text</dataType>
+                        <label translate="true">Image</label>
+                    </settings>
+                </field>
+                <field name="alt_text" formElement="input" sortOrder="55">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="visible" xsi:type="boolean">false</item>
+                        </item>
+                    </argument>
+                    <settings>
+                        <dataType>text</dataType>
+                        <label translate="true">Alt Text</label>
+                    </settings>
+                </field>
+                <field name="redirect_url" formElement="input" sortOrder="80">
+                    <settings>
+                        <dataType>text</dataType>
+                        <label translate="true">Redirect URL</label>
+                    </settings>
+                </field>
+                <actionDelete template="ui/dynamic-rows/cells/action-delete" sortOrder="90">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="fit" xsi:type="boolean">false</item>
+                        </item>
+                    </argument>
+                </actionDelete>
+            </container>
+        </dynamicRows>
+    </fieldset>
+
+    <fieldset name="tooltip_section">
+        <settings>
+            <label translate="true">Tooltip</label>
+            <collapsible>true</collapsible>
+        </settings>
+        <field name="tooltip_is_enabled" formElement="checkbox" sortOrder="10">
+            <settings>
+                <dataType>boolean</dataType>
+                <label translate="true">Enabled</label>
+                <dataScope>tooltip.is_enabled</dataScope>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="true" xsi:type="number">1</map>
+                            <map name="false" xsi:type="number">0</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+        <field name="tooltip_body_text" formElement="textarea" sortOrder="20">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Body</label>
+                <dataScope>tooltip.body_text</dataScope>
+            </settings>
+        </field>
+        <field name="tooltip_background_color" formElement="input" sortOrder="30">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Background Color</label>
+                <dataScope>tooltip.background_color</dataScope>
+            </settings>
+        </field>
+        <field name="tooltip_text_color" formElement="input" sortOrder="40">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Text Color</label>
+                <dataScope>tooltip.text_color</dataScope>
+            </settings>
+        </field>
+    </fieldset>
+
+    <fieldset name="conditions">
+        <settings>
+            <label translate="true">Product Conditions</label>
+            <collapsible>true</collapsible>
+        </settings>
+        <field name="conditions_payload" sortOrder="10" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Iranimij_Badger/js/form/element/rule-conditions-chooser</item>
+                    <item name="elementTmpl" xsi:type="string">Iranimij_Badger/form/element/rule-conditions-chooser</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Product Conditions</label>
+                <dataScope>conditions_payload</dataScope>
+                <componentType>field</componentType>
+            </settings>
+        </field>
+    </fieldset>
+</form>

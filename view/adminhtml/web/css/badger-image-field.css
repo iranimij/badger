@@ -1,0 +1,260 @@
+/* ── Visual Panels Layout ─────────────────────────────────────── */
+.badger-visuals-wrapper .badger-visual-panels {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.badger-visuals-wrapper .badger-visual-panel {
+    border: 1px solid #d6d6d6;
+    border-radius: 3px;
+    background: #f8f8f8;
+    padding: 14px 14px 10px;
+}
+
+.badger-visuals-wrapper .badger-visual-panel-body {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 20px;
+    align-items: flex-end;
+}
+
+/* Each field cell */
+.badger-visuals-wrapper .badger-vf {
+    flex: 0 0 auto;
+}
+
+/* Narrow columns */
+.badger-visuals-wrapper .badger-vf-surface,
+.badger-visuals-wrapper .badger-vf-shape_kind,
+.badger-visuals-wrapper .badger-vf-placement {
+    min-width: 150px;
+}
+
+.badger-visuals-wrapper .badger-vf-size_percent {
+    max-width: 90px;
+}
+
+/* Color pickers — compact */
+.badger-visuals-wrapper .badger-vf-bg_color,
+.badger-visuals-wrapper .badger-vf-text_color {
+    min-width: 160px;
+}
+
+/* Label and redirect — wider */
+.badger-visuals-wrapper .badger-vf-label_text,
+.badger-visuals-wrapper .badger-vf-redirect_url {
+    min-width: 200px;
+}
+
+/* Image picker — full row */
+.badger-visuals-wrapper .badger-vf-image_path {
+    min-width: 280px;
+}
+
+/* Delete button aligned to bottom */
+.badger-visuals-wrapper .badger-vf-actionDelete {
+    margin-left: auto;
+    align-self: flex-end;
+    padding-bottom: 2px;
+}
+
+.badger-visuals-wrapper .badger-vf-actionDelete .action-delete {
+    background: none;
+    border: 1px solid #d82020;
+    color: #d82020;
+    cursor: pointer;
+    padding: 5px 12px;
+    border-radius: 3px;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    white-space: nowrap;
+}
+
+.badger-visuals-wrapper .badger-vf-actionDelete .action-delete:hover {
+    background: #d82020;
+    color: #fff;
+}
+
+/* Ensure field labels are visible in panel layout */
+.badger-visuals-wrapper .admin__field-label {
+    display: block !important;
+}
+
+/* Add Visual button */
+.badger-visuals-wrapper .badger-add-visual-action {
+    margin-top: 4px;
+}
+
+.badger-image-field {
+    max-width: 280px;
+    min-width: 160px;
+}
+
+/* Drop zone */
+.badger-image-dropzone {
+    border: 2px dashed #c7c7c7;
+    border-radius: 4px;
+    min-height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fafafa;
+    cursor: pointer;
+    transition: border-color .2s, background .2s;
+    position: relative;
+    overflow: hidden;
+}
+.badger-image-dropzone._drag-over {
+    border-color: #41362f;
+    background: #f0ece8;
+}
+.badger-image-dropzone._uploading {
+    opacity: .6;
+    cursor: wait;
+}
+.badger-image-dropzone._has-image {
+    border-style: solid;
+    border-color: #b2b2b2;
+    min-height: 80px;
+}
+
+/* Placeholder text inside drop zone */
+.badger-upload-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    color: #757575;
+    font-size: 1.2rem;
+    padding: 20px;
+    text-align: center;
+}
+.badger-upload-icon {
+    font-size: 2.4rem;
+}
+.badger-spinner {
+    display: inline-block;
+    animation: badger-spin 1s linear infinite;
+    font-size: 2rem;
+}
+@keyframes badger-spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+/* Preview */
+.badger-image-preview {
+    position: relative;
+    width: 100%;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.badger-image-thumb {
+    max-width: 160px;
+    max-height: 100px;
+    object-fit: contain;
+    border-radius: 2px;
+}
+.badger-image-remove {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background: rgba(255,255,255,.8);
+    border: 1px solid #c7c7c7;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 1;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.badger-image-remove:hover {
+    background: #e8e8e8;
+}
+
+/* Action buttons row */
+.badger-image-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+}
+
+/* Path hint */
+.badger-image-path-hint {
+    margin-top: 4px;
+    font-size: 1.1rem;
+    color: #888;
+    word-break: break-all;
+}
+
+/* Predefined gallery panel */
+.badger-predefined-gallery {
+    margin-top: 12px;
+    border: 1px solid #d6d6d6;
+    border-radius: 4px;
+    padding: 12px;
+    background: #fff;
+}
+.badger-predefined-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.badger-gallery-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.4rem;
+    color: #555;
+}
+.badger-predefined-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    gap: 10px;
+}
+.badger-predefined-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    padding: 6px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    background: #fafafa;
+    transition: border-color .15s, background .15s;
+}
+.badger-predefined-item:hover {
+    border-color: #41362f;
+    background: #f5f0ec;
+}
+.badger-predefined-thumb {
+    width: 72px;
+    height: 48px;
+    object-fit: contain;
+}
+.badger-predefined-label {
+    font-size: 1.1rem;
+    color: #444;
+    text-align: center;
+    max-width: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.badger-gallery-empty {
+    color: #888;
+    font-size: 1.2rem;
+    text-align: center;
+    padding: 20px 0;
+}

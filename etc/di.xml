@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Iranimij\Badger\Api\Data\BadgerInterface" type="Iranimij\Badger\Model\Badger"/>
+    <preference for="Iranimij\Badger\Api\Data\VisualInterface" type="Iranimij\Badger\Model\Visual"/>
+    <preference for="Iranimij\Badger\Api\Data\TooltipInterface" type="Iranimij\Badger\Model\Tooltip"/>
+    <preference for="Iranimij\Badger\Api\Data\BadgerSearchResultsInterface"
+                type="Iranimij\Badger\Model\BadgerSearchResults"/>
+    <preference for="Iranimij\Badger\Api\BadgerRepositoryInterface"
+                type="Iranimij\Badger\Model\BadgerRepository"/>
+    <preference for="Iranimij\Badger\Model\Evaluation\BestsellerLookupInterface"
+                type="Iranimij\Badger\Model\Evaluation\NullBestsellerLookup"/>
+    <preference for="Iranimij\Badger\Service\ShapeRenderer\ShapeRendererInterface"
+                type="Iranimij\Badger\Service\ShapeRenderer\GdShapeRenderer"/>
+    <type name="Iranimij\Badger\Model\Evaluation\SpecificationRegistry">
+        <arguments>
+            <argument name="factories" xsi:type="array">
+                <item name="attr_eq" xsi:type="object">Iranimij\Badger\Model\Evaluation\Factory\AttributeEqualsFactory</item>
+                <item name="attr_in" xsi:type="object">Iranimij\Badger\Model\Evaluation\Factory\AttributeInFactory</item>
+                <item name="attr_range" xsi:type="object">Iranimij\Badger\Model\Evaluation\Factory\AttributeRangeFactory</item>
+                <item name="on_sale" xsi:type="object">Iranimij\Badger\Model\Evaluation\Factory\OnSaleFactory</item>
+                <item name="is_new" xsi:type="object">Iranimij\Badger\Model\Evaluation\Factory\IsNewFactory</item>
+                <item name="stock_status" xsi:type="object">Iranimij\Badger\Model\Evaluation\Factory\StockStatusFactory</item>
+                <item name="qty_range" xsi:type="object">Iranimij\Badger\Model\Evaluation\Factory\QuantityRangeFactory</item>
+                <item name="customer_group" xsi:type="object">Iranimij\Badger\Model\Evaluation\Factory\CustomerGroupFactory</item>
+                <item name="store" xsi:type="object">Iranimij\Badger\Model\Evaluation\Factory\StoreFactory</item>
+                <item name="category_in" xsi:type="object">Iranimij\Badger\Model\Evaluation\Factory\CategoryMembershipFactory</item>
+                <item name="price_range" xsi:type="object">Iranimij\Badger\Model\Evaluation\Factory\PriceRangeFactory</item>
+                <item name="bestseller" xsi:type="object">Iranimij\Badger\Model\Evaluation\Factory\BestsellerFactory</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Iranimij\Badger\Service\Placeholder\PlaceholderRegistry">
+        <arguments>
+            <argument name="resolvers" xsi:type="array">
+                <item name="price" xsi:type="object">Iranimij\Badger\Service\Placeholder\Resolver\PriceResolver</item>
+                <item name="special_price" xsi:type="object">Iranimij\Badger\Service\Placeholder\Resolver\SpecialPriceResolver</item>
+                <item name="discount_amount" xsi:type="object">Iranimij\Badger\Service\Placeholder\Resolver\DiscountAmountResolver</item>
+                <item name="discount_percent" xsi:type="object">Iranimij\Badger\Service\Placeholder\Resolver\DiscountPercentResolver</item>
+                <item name="sku" xsi:type="object">Iranimij\Badger\Service\Placeholder\Resolver\SkuResolver</item>
+                <item name="qty" xsi:type="object">Iranimij\Badger\Service\Placeholder\Resolver\QtyResolver</item>
+                <item name="active_from" xsi:type="object">Iranimij\Badger\Service\Placeholder\Resolver\ActiveFromResolver</item>
+                <item name="active_to" xsi:type="object">Iranimij\Badger\Service\Placeholder\Resolver\ActiveToResolver</item>
+                <item name="new_for_days" xsi:type="object">Iranimij\Badger\Service\Placeholder\Resolver\NewForDaysResolver</item>
+                <item name="product_attribute" xsi:type="object">Iranimij\Badger\Service\Placeholder\Resolver\ProductAttributeResolver</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

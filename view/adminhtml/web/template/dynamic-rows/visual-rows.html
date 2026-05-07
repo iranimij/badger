@@ -1,0 +1,41 @@
+<!--
+/**
+ * Iranimij_Badger — panel-based visual rows template.
+ * Replaces the default table layout with div panels so that
+ * shape-dependent fields (label/colors vs image) can be toggled
+ * without breaking column-header alignment.
+ */
+-->
+<div class="admin__field badger-visuals-wrapper"
+     visible="visible"
+     disable="disabled"
+     attr="'data-index': index">
+    <div class="admin__field-control">
+
+        <div data-role="spinner" class="admin__data-grid-loading-mask" if="$data.showSpinner">
+            <div class="spinner"><span repeat="8"></span></div>
+        </div>
+
+        <div class="badger-visual-panels">
+            <div class="badger-visual-panel" repeat="foreach: elems, item: '$record'">
+                <div class="badger-visual-panel-body">
+                    <!-- ko foreach: {data: $record().elems(), as: 'elem'} -->
+                    <div if="elem.template"
+                         visible="elem.visible() && elem.formElement !== 'hidden'"
+                         css="'badger-vf badger-vf-' + elem.index"
+                         template="elem.template"></div>
+                    <!-- /ko -->
+                </div>
+            </div>
+        </div>
+
+        <div if="$data.addButton" class="admin__control-table-action badger-add-visual-action">
+            <button attr="{disabled: disabled, 'data-action': 'add_new_row'}"
+                    type="button"
+                    click="processingAddChild.bind($data, false, false, false)">
+                <span translate="addButtonLabel"></span>
+            </button>
+        </div>
+
+    </div>
+</div>

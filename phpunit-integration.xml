@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.5/phpunit.xsd"
+         bootstrap="/var/www/html/dev/tests/integration/framework/bootstrap.php"
+         colors="true"
+         cacheResultFile="/tmp/.iranimij-badger-integration.phpunit.cache">
+    <testsuites>
+        <testsuite name="Iranimij_Badger_Integration">
+            <directory>/var/www/html/src/iranimij/badger/Test/Integration</directory>
+        </testsuite>
+    </testsuites>
+    <php>
+        <ini name="date.timezone" value="America/Los_Angeles"/>
+        <const name="TESTS_INSTALL_CONFIG_FILE" value="etc/install-config-mysql.php"/>
+        <const name="TESTS_POST_INSTALL_SETUP_COMMAND_CONFIG_FILE" value="etc/post-install-setup-command-config.php"/>
+        <const name="TESTS_GLOBAL_CONFIG_FILE" value="etc/config-global.php"/>
+        <const name="TESTS_GLOBAL_CONFIG_DIR" value="../../../app/etc"/>
+        <const name="TESTS_CLEANUP" value="disabled"/>
+        <const name="TESTS_MAGENTO_MODE" value="default"/>
+        <const name="TESTS_ERROR_LOG_LISTENER_LEVEL" value="-1"/>
+        <const name="TESTS_EXTRA_VERBOSE_LOG" value="0"/>
+        <const name="TESTS_PARALLEL_RUN" value="0"/>
+        <const name="TESTS_MAGENTO_INSTALLATION" value="disabled"/>
+    </php>
+</phpunit>

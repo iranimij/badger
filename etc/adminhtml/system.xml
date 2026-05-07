@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="iranimij" translate="label" sortOrder="900">
+            <label>Iranimij</label>
+        </tab>
+        <section id="iranimij_badger" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Badger</label>
+            <tab>iranimij</tab>
+            <resource>Iranimij_Badger::badger_config</resource>
+
+            <!-- General -->
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Badger</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="new_for_days" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>"New" Threshold (days)</label>
+                    <comment>Days after creation a product is considered new when using creation-date mode.</comment>
+                    <validate>validate-digits</validate>
+                </field>
+            </group>
+
+            <!-- Display Settings -->
+            <group id="display" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Display Settings</label>
+                <field id="max_labels" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Max Labels per Product</label>
+                    <comment>0 = unlimited.</comment>
+                    <validate>validate-digits validate-zero-or-greater</validate>
+                </field>
+                <field id="show_several_on_place" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Multiple Labels at the Same Position</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="labels_alignment" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Labels Alignment</label>
+                    <source_model>Iranimij\Badger\Model\Source\LabelAlignment</source_model>
+                    <depends>
+                        <field id="show_several_on_place">1</field>
+                    </depends>
+                </field>
+                <field id="margin_between" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Margin Between Labels (px)</label>
+                    <validate>validate-number validate-zero-or-greater</validate>
+                    <depends>
+                        <field id="show_several_on_place">1</field>
+                    </depends>
+                </field>
+                <field id="hide_if_zero_label" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Hide Label When Placeholder Resolves to Zero</label>
+                    <comment>Hides labels whose text contains only a zero-value placeholder.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+
+            <!-- Selectors -->
+            <group id="selectors" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>DOM Selectors</label>
+                <field id="category_image" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Category Image Container</label>
+                    <comment>CSS selector of the element the badge stack is appended to on category pages.</comment>
+                </field>
+                <field id="product_page_image" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Page Image Container</label>
+                    <comment>CSS selector on the product detail page.</comment>
+                </field>
+            </group>
+
+            <!-- On Sale Condition -->
+            <group id="on_sale" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>"On Sale" Condition</label>
+                <field id="sale_min" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Minimum Discount Amount</label>
+                    <comment>Product must be discounted by at least this amount (0 = any discount).</comment>
+                    <validate>validate-number validate-zero-or-greater</validate>
+                </field>
+                <field id="sale_min_percent" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Minimum Discount Percentage</label>
+                    <comment>Product must be discounted by at least this percentage (0 = any discount).</comment>
+                    <validate>validate-number validate-zero-or-greater</validate>
+                </field>
+                <field id="rounding" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Discount Percentage Rounding</label>
+                    <source_model>Iranimij\Badger\Model\Source\DiscountRounding</source_model>
+                </field>
+            </group>
+
+            <!-- Is New Condition -->
+            <group id="new" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>"Is New" Condition</label>
+                <field id="use_new_dates" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Use "New From / To Date" Attributes</label>
+                    <comment>When enabled, checks news_from_date / news_to_date product attributes first.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="use_creation_date" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Fall Back to Creation Date</label>
+                    <comment>Uses the General "New Threshold" when date attributes are absent or disabled.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+
+            <!-- Stock Status Condition -->
+            <group id="stock_status" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="0" showInStore="1">
+                <label>"Stock Status" Condition</label>
+                <field id="out_of_stock_only" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Show Only Out-of-Stock Labels When Product is Out of Stock</label>
+                    <comment>When Yes, suppresses all other labels for out-of-stock products.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="default_label" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Default Out-of-Stock Label</label>
+                    <comment>Label shown automatically when a product is out of stock and "Show Only OOS Labels" is enabled.</comment>
+                    <source_model>Iranimij\Badger\Model\Source\ActiveBadgers</source_model>
+                    <depends>
+                        <field id="out_of_stock_only">1</field>
+                    </depends>
+                </field>
+            </group>
+
+            <!-- Tooltip -->
+            <group id="tooltip" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Tooltip</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Tooltip</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="background_color" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default Background Color</label>
+                </field>
+                <field id="text_color" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default Text Color</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

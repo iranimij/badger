@@ -1,0 +1,97 @@
+{
+    "iranimij_badger_entity": {
+        "column": {
+            "badger_id": true,
+            "name": true,
+            "is_enabled": true,
+            "priority": true,
+            "is_exclusive": true,
+            "use_for_parent": true,
+            "active_from": true,
+            "active_to": true,
+            "conditions_payload": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "IRANIMIJ_BADGER_ENTITY_IS_ENABLED": true,
+            "IRANIMIJ_BADGER_ENTITY_ENABLED_PRIORITY": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "iranimij_badger_store": {
+        "column": {
+            "badger_id": true,
+            "store_id": true
+        },
+        "index": {
+            "IRANIMIJ_BADGER_STORE_STORE_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "IRANIMIJ_BADGER_STORE_BADGER_ID_ENTITY": true,
+            "IRANIMIJ_BADGER_STORE_STORE_ID_STORE": true
+        }
+    },
+    "iranimij_badger_customer_group": {
+        "column": {
+            "badger_id": true,
+            "customer_group_id": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "IRANIMIJ_BADGER_CG_BADGER_ID_ENTITY": true
+        }
+    },
+    "iranimij_badger_visual": {
+        "column": {
+            "badger_id": true,
+            "surface": true,
+            "shape_kind": true,
+            "placement": true,
+            "label_text": true,
+            "image_path": true,
+            "redirect_url": true,
+            "alt_text": true,
+            "css_class": true,
+            "size_percent": true,
+            "style_payload": true
+        },
+        "index": {
+            "IRANIMIJ_BADGER_VISUAL_SURFACE": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "IRANIMIJ_BADGER_VISUAL_BADGER_ID_ENTITY": true
+        }
+    },
+    "iranimij_badger_tooltip": {
+        "column": {
+            "badger_id": true,
+            "is_enabled": true,
+            "body_text": true,
+            "background_color": true,
+            "text_color": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "IRANIMIJ_BADGER_TOOLTIP_BADGER_ID_ENTITY": true
+        }
+    },
+    "iranimij_badger_index": {
+        "column": {
+            "badger_id": true,
+            "product_id": true,
+            "store_id": true,
+            "customer_group_id": true
+        },
+        "index": {
+            "IRANIMIJ_BADGER_INDEX_BADGER_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

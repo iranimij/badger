@@ -1,0 +1,64 @@
+// Category grid: give the card a stacking context so the absolute stack overlays the image
+.products-grid .product-item-info,
+.products-list .product-item-info,
+.widget-product-grid .product-item-info,
+.block-viewed-products-grid .product-item-info,
+.block-new-products-grid .product-item-info {
+    position: relative;
+    overflow: hidden;
+}
+
+// PDP + any element that directly holds the stack
+a.product-item-photo,
+a.product.photo {
+    position: relative;
+    overflow: hidden;
+}
+
+.iranimij-badger-stack {
+    position: absolute;
+    // Cover the image area: sit at the top of the positioned parent, full width
+    top: 0;
+    left: 0;
+    right: 0;
+    // Height covers the image link inside the card; JS positioner can tighten this
+    bottom: 0;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.iranimij-badger {
+    position: absolute;
+    pointer-events: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 50%;
+    max-height: 50%;
+
+    img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    &__label {
+        font-weight: 700;
+        font-size: 12px;
+        text-transform: uppercase;
+        padding: 2px 6px;
+    }
+
+    &--top-left { top: 0; left: 0; }
+    &--top-center { top: 0; left: 50%; transform: translateX(-50%); }
+    &--top-right { top: 0; right: 0; }
+    &--middle-left { top: 50%; left: 0; transform: translateY(-50%); }
+    &--middle-center { top: 50%; left: 50%; transform: translate(-50%, -50%); }
+    &--middle-right { top: 50%; right: 0; transform: translateY(-50%); }
+    &--bottom-left { bottom: 0; left: 0; }
+    &--bottom-center { bottom: 0; left: 50%; transform: translateX(-50%); }
+    &--bottom-right { bottom: 0; right: 0; }
+
+    &--shape-circle { border-radius: 50%; }
+    &--shape-rounded_rect { border-radius: 6px; }
+}

@@ -1,0 +1,31 @@
+{
+    "name": "iranimij/badger",
+    "description": "Iranimij Badger — dynamic product badges engine for Magento 2.",
+    "type": "magento2-module",
+    "license": "OSL-3.0",
+    "version": "1.0.0",
+    "authors": [
+        {
+            "name": "Iman Aboheydary (Iranimij)",
+            "email": "iranimij@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "ext-gd": "*",
+        "iranimij/iranimij-core": "*",
+        "magento/framework": "*",
+        "magento/module-catalog": "*",
+        "magento/module-catalog-inventory": "*",
+        "magento/module-store": "*",
+        "magento/module-ui": "*"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Iranimij\\Badger\\": ""
+        }
+    }
+}

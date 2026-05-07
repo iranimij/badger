@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="iranimij_badger_entity" resource="default" engine="innodb" comment="Iranimij Badger Entity">
+        <column xsi:type="int" name="badger_id" unsigned="true" nullable="false" identity="true" comment="Badger ID"/>
+        <column xsi:type="varchar" name="name" nullable="false" length="255" comment="Internal name"/>
+        <column xsi:type="smallint" name="is_enabled" unsigned="true" nullable="false" default="0" comment="Enabled flag"/>
+        <column xsi:type="smallint" name="priority" unsigned="true" nullable="false" default="0" comment="Display priority"/>
+        <column xsi:type="smallint" name="is_exclusive" unsigned="true" nullable="false" default="0" comment="Exclusive (single) mode"/>
+        <column xsi:type="smallint" name="use_for_parent" unsigned="true" nullable="false" default="0" comment="Use for parent product"/>
+        <column xsi:type="datetime" name="active_from" nullable="true" comment="Active from"/>
+        <column xsi:type="datetime" name="active_to" nullable="true" comment="Active to"/>
+        <column xsi:type="text" name="conditions_payload" nullable="true" comment="Serialized conditions tree"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Creation timestamp"/>
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Update timestamp"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="badger_id"/>
+        </constraint>
+        <index referenceId="IRANIMIJ_BADGER_ENTITY_IS_ENABLED" indexType="btree">
+            <column name="is_enabled"/>
+        </index>
+        <index referenceId="IRANIMIJ_BADGER_ENTITY_ENABLED_PRIORITY" indexType="btree">
+            <column name="is_enabled"/>
+            <column name="priority"/>
+        </index>
+    </table>
+
+    <table name="iranimij_badger_store" resource="default" engine="innodb" comment="Badger ↔ Store link">
+        <column xsi:type="int" name="badger_id" unsigned="true" nullable="false" comment="Badger ID"/>
+        <column xsi:type="smallint" name="store_id" unsigned="true" nullable="false" comment="Store ID"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="badger_id"/>
+            <column name="store_id"/>
+        </constraint>
+        <constraint xsi:type="foreign"
+                    referenceId="IRANIMIJ_BADGER_STORE_BADGER_ID_ENTITY"
+                    table="iranimij_badger_store" column="badger_id"
+                    referenceTable="iranimij_badger_entity" referenceColumn="badger_id"
+                    onDelete="CASCADE"/>
+        <constraint xsi:type="foreign"
+                    referenceId="IRANIMIJ_BADGER_STORE_STORE_ID_STORE"
+                    table="iranimij_badger_store" column="store_id"
+                    referenceTable="store" referenceColumn="store_id"
+                    onDelete="CASCADE"/>
+        <index referenceId="IRANIMIJ_BADGER_STORE_STORE_ID" indexType="btree">
+            <column name="store_id"/>
+        </index>
+    </table>
+
+    <table name="iranimij_badger_customer_group" resource="default" engine="innodb" comment="Badger ↔ Customer Group link">
+        <column xsi:type="int" name="badger_id" unsigned="true" nullable="false" comment="Badger ID"/>
+        <column xsi:type="int" name="customer_group_id" unsigned="true" nullable="false" comment="Customer Group ID"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="badger_id"/>
+            <column name="customer_group_id"/>
+        </constraint>
+        <constraint xsi:type="foreign"
+                    referenceId="IRANIMIJ_BADGER_CG_BADGER_ID_ENTITY"
+                    table="iranimij_badger_customer_group" column="badger_id"
+                    referenceTable="iranimij_badger_entity" referenceColumn="badger_id"
+                    onDelete="CASCADE"/>
+    </table>
+
+    <table name="iranimij_badger_visual" resource="default" engine="innodb" comment="Badger visual settings per surface">
+        <column xsi:type="int" name="badger_id" unsigned="true" nullable="false" comment="Badger ID"/>
+        <column xsi:type="smallint" name="surface" unsigned="true" nullable="false" comment="Surface enum"/>
+        <column xsi:type="smallint" name="shape_kind" unsigned="true" nullable="false" default="0" comment="Shape kind enum"/>
+        <column xsi:type="smallint" name="placement" unsigned="true" nullable="false" default="0" comment="Placement enum"/>
+        <column xsi:type="varchar" name="label_text" nullable="true" length="1024" comment="Badger text with placeholders"/>
+        <column xsi:type="varchar" name="image_path" nullable="true" length="512" comment="Uploaded image path"/>
+        <column xsi:type="varchar" name="redirect_url" nullable="true" length="512" comment="Click-through URL"/>
+        <column xsi:type="varchar" name="alt_text" nullable="true" length="255" comment="Alt / title text"/>
+        <column xsi:type="varchar" name="css_class" nullable="true" length="255" comment="Extra CSS class(es) on rendered element"/>
+        <column xsi:type="smallint" name="size_percent" unsigned="true" nullable="false" default="25" comment="Size as % of product image"/>
+        <column xsi:type="text" name="style_payload" nullable="true" comment="Serialized style (color, rotation, z-index, etc)"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="badger_id"/>
+            <column name="surface"/>
+        </constraint>
+        <constraint xsi:type="foreign"
+                    referenceId="IRANIMIJ_BADGER_VISUAL_BADGER_ID_ENTITY"
+                    table="iranimij_badger_visual" column="badger_id"
+                    referenceTable="iranimij_badger_entity" referenceColumn="badger_id"
+                    onDelete="CASCADE"/>
+        <index referenceId="IRANIMIJ_BADGER_VISUAL_SURFACE" indexType="btree">
+            <column name="surface"/>
+        </index>
+    </table>
+
+    <table name="iranimij_badger_tooltip" resource="default" engine="innodb" comment="Badger hover tooltip">
+        <column xsi:type="int" name="badger_id" unsigned="true" nullable="false" comment="Badger ID"/>
+        <column xsi:type="smallint" name="is_enabled" unsigned="true" nullable="false" default="1" comment="Enabled"/>
+        <column xsi:type="text" name="body_text" nullable="true" comment="Tooltip body text with placeholders"/>
+        <column xsi:type="varchar" name="background_color" nullable="true" length="32" comment="Background color"/>
+        <column xsi:type="varchar" name="text_color" nullable="true" length="32" comment="Text color"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="badger_id"/>
+        </constraint>
+        <constraint xsi:type="foreign"
+                    referenceId="IRANIMIJ_BADGER_TOOLTIP_BADGER_ID_ENTITY"
+                    table="iranimij_badger_tooltip" column="badger_id"
+                    referenceTable="iranimij_badger_entity" referenceColumn="badger_id"
+                    onDelete="CASCADE"/>
+    </table>
+
+    <table name="iranimij_badger_index" resource="default" engine="innodb" comment="Flat index: product × store × group → badger">
+        <column xsi:type="int" name="badger_id" unsigned="true" nullable="false" comment="Badger ID"/>
+        <column xsi:type="int" name="product_id" unsigned="true" nullable="false" comment="Product ID"/>
+        <column xsi:type="smallint" name="store_id" unsigned="true" nullable="false" comment="Store ID"/>
+        <column xsi:type="int" name="customer_group_id" unsigned="true" nullable="false" comment="Customer Group ID"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="product_id"/>
+            <column name="store_id"/>
+            <column name="customer_group_id"/>
+            <column name="badger_id"/>
+        </constraint>
+        <index referenceId="IRANIMIJ_BADGER_INDEX_BADGER_ID" indexType="btree">
+            <column name="badger_id"/>
+        </index>
+    </table>
+</schema>

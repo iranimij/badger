@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Iranimij_Badger::menu_root"
+             title="Badger"
+             module="Iranimij_Badger"
+             parent="Magento_Catalog::catalog"
+             sortOrder="90"
+             resource="Iranimij_Badger::badger"/>
+        <add id="Iranimij_Badger::menu_manage"
+             title="Manage Badgers"
+             module="Iranimij_Badger"
+             parent="Iranimij_Badger::menu_root"
+             action="badger/badger/index"
+             sortOrder="10"
+             resource="Iranimij_Badger::badger_manage"/>
+    </menu>
+</config>

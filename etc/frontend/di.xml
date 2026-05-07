@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Catalog\Block\Product\ListProduct">
+        <plugin name="iranimij_badger_category_list" type="Iranimij\Badger\Plugin\Frontend\CategoryListAfterHtmlPlugin"/>
+    </type>
+    <type name="Magento\Checkout\Block\Cart\Crosssell">
+        <plugin name="iranimij_badger_cart_crosssell" type="Iranimij\Badger\Plugin\Frontend\CartCrossSellPlugin"/>
+    </type>
+    <type name="Magento\CatalogWidget\Block\Product\ProductsList">
+        <plugin name="iranimij_badger_related_widget" type="Iranimij\Badger\Plugin\Frontend\RelatedProductsWidgetPlugin"/>
+    </type>
+    <type name="Magento\Catalog\Block\Product\ProductList\Upsell">
+        <plugin name="iranimij_badger_upsell" type="Iranimij\Badger\Plugin\Frontend\UpsellWidgetPlugin"/>
+    </type>
+</config>

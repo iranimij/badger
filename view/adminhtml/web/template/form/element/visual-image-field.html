@@ -1,0 +1,118 @@
+<!--
+    Template for the Badger visual image-path field.
+    Shown only when shape_kind === IMAGE (1).
+-->
+<div class="admin__field" data-bind="visible: visible">
+    <label class="admin__field-label">
+        <span data-bind="text: label"></span>
+    </label>
+
+    <div class="admin__field-control badger-image-field">
+
+        <!-- Hidden file input -->
+        <input type="file"
+               style="display:none"
+               accept=".png,.jpg,.jpeg,.gif,.webp,.svg"
+               data-bind="attr: {'data-role': 'badger-file-input-' + uid}, event: {change: onFileInputChange}"/>
+
+        <!-- Upload drop-zone -->
+        <div class="badger-image-dropzone"
+             data-bind="
+                css: {'_has-image': previewSrc(), '_uploading': isUploading()},
+                event: {dragover: onDragOver, dragleave: onDragLeave, drop: onDrop}">
+
+            <!-- Current image preview -->
+            <!-- ko if: previewSrc() -->
+            <div class="badger-image-preview">
+                <img data-bind="attr: {src: previewSrc(), alt: label}" class="badger-image-thumb"/>
+                <button type="button"
+                        class="action-delete badger-image-remove"
+                        data-bind="click: removeImage"
+                        title="Remove">
+                    <span>✕</span>
+                </button>
+            </div>
+            <!-- /ko -->
+
+            <!-- Upload area (shown when no image or as overlay) -->
+            <!-- ko ifnot: previewSrc() -->
+            <div class="badger-upload-placeholder"
+                 data-bind="click: triggerFileInput">
+                <!-- ko if: isUploading() -->
+                <span class="badger-spinner">⟳</span>
+                <span data-bind="i18n: 'Uploading…'"></span>
+                <!-- /ko -->
+                <!-- ko ifnot: isUploading() -->
+                <span class="badger-upload-icon">⬆</span>
+                <span data-bind="i18n: 'Click or drag an image here'"></span>
+                <!-- /ko -->
+            </div>
+            <!-- /ko -->
+        </div>
+
+        <!-- Action buttons -->
+        <div class="badger-image-actions">
+            <button type="button"
+                    class="action-secondary"
+                    data-bind="click: triggerFileInput, disable: isUploading()">
+                <span data-bind="i18n: 'Upload Image'"></span>
+            </button>
+
+            <!-- ko if: predefinedUrl -->
+            <button type="button"
+                    class="action-secondary"
+                    data-bind="click: openGallery">
+                <span data-bind="i18n: 'Use Predefined'"></span>
+            </button>
+            <!-- /ko -->
+
+            <!-- ko if: previewSrc() -->
+            <button type="button"
+                    class="action-secondary"
+                    data-bind="click: removeImage">
+                <span data-bind="i18n: 'Remove'"></span>
+            </button>
+            <!-- /ko -->
+        </div>
+
+        <!-- Current path (read-only display) -->
+        <!-- ko if: value() -->
+        <div class="badger-image-path-hint">
+            <span data-bind="text: value()"></span>
+        </div>
+        <!-- /ko -->
+
+        <!-- Predefined images gallery -->
+        <!-- ko if: showGallery() -->
+        <div class="badger-predefined-gallery">
+            <div class="badger-predefined-header">
+                <strong data-bind="i18n: 'Predefined Badge Images'"></strong>
+                <button type="button"
+                        class="action-close badger-gallery-close"
+                        data-bind="click: closeGallery">✕</button>
+            </div>
+
+            <!-- ko if: predefinedImages().length === 0 -->
+            <p class="badger-gallery-empty"
+               data-bind="i18n: 'No predefined images available. Upload one to pub/media/iranimij/badger/predefined/'">
+            </p>
+            <!-- /ko -->
+
+            <div class="badger-predefined-grid">
+                <!-- ko foreach: predefinedImages() -->
+                <div class="badger-predefined-item"
+                     data-bind="click: $parent.selectPredefined.bind($parent, $data)">
+                    <img data-bind="attr: {src: url, alt: label}" class="badger-predefined-thumb"/>
+                    <span class="badger-predefined-label" data-bind="text: label"></span>
+                </div>
+                <!-- /ko -->
+            </div>
+        </div>
+        <!-- /ko -->
+
+        <!-- Validation error -->
+        <!-- ko if: error() -->
+        <div class="admin__field-error" data-bind="text: error()"></div>
+        <!-- /ko -->
+    </div>
+</div>

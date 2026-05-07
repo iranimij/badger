@@ -1,0 +1,55 @@
+<?php
+/** @var \Iranimij\Badger\Block\Surface\BadgerStack $block */
+/** @var \Magento\Framework\Escaper $escaper */
+$badgers = $block->getResolvedBadgers();
+if (!$badgers) {
+    return;
+}
+$mediaBase = $block->getMediaBaseUrl();
+?>
+<div class="iranimij-badger-stack" data-surface="<?= $escaper->escapeHtmlAttr($block->getSurface()->code()) ?>">
+    <?php foreach ($badgers as $badger): ?>
+        <?php
+        $classes = ['iranimij-badger', $badger->placement->cssClass(), 'iranimij-badger--shape-' . strtolower($badger->shape->name)];
+        if ($badger->cssClass) {
+            $classes[] = $badger->cssClass;
+        }
+        $inlineStyle = '';
+        if ($badger->sizePercent > 0) {
+            $inlineStyle .= 'width:' . $badger->sizePercent . '%;';
+        }
+        if ($badger->badgeBgColor) {
+            $inlineStyle .= 'background-color:' . $badger->badgeBgColor . ';';
+        }
+        if ($badger->badgeTextColor) {
+            $inlineStyle .= 'color:' . $badger->badgeTextColor . ';';
+        }
+        $wrapTag = $badger->redirectUrl ? 'a' : 'div';
+        ?>
+        <<?= $wrapTag /* @noEscape */ ?>
+            class="<?= $escaper->escapeHtmlAttr(implode(' ', $classes)) ?>"
+            <?php if ($inlineStyle): ?>style="<?= $escaper->escapeHtmlAttr($inlineStyle) ?>"<?php endif; ?>
+            data-badger-id="<?= (int) $badger->badgerId ?>"
+            <?php if ($badger->redirectUrl && $wrapTag === 'a'): ?>
+                href="<?= $escaper->escapeUrl($badger->redirectUrl) ?>"
+            <?php endif; ?>
+            <?php if ($badger->hasTooltip()): ?>
+                data-tooltip="<?= $escaper->escapeHtmlAttr($badger->tooltipText ?? '') ?>"
+                data-tooltip-bg="<?= $escaper->escapeHtmlAttr($badger->tooltipBgColor ?? '') ?>"
+                data-tooltip-color="<?= $escaper->escapeHtmlAttr($badger->tooltipTextColor ?? '') ?>"
+            <?php endif; ?>>
+            <?php if ($badger->imagePath): ?>
+                <img src="<?= $escaper->escapeUrl(
+                    preg_match('/^https?:\/\//', $badger->imagePath)
+                        ? $badger->imagePath
+                        : $mediaBase . ltrim($badger->imagePath, '/')
+                ) ?>"
+                     alt="<?= $escaper->escapeHtmlAttr($badger->altText ?? $badger->labelText) ?>"
+                     loading="lazy"/>
+            <?php endif; ?>
+            <?php if ($badger->labelText !== ''): ?>
+                <span class="iranimij-badger__label"><?= $escaper->escapeHtml($badger->labelText) ?></span>
+            <?php endif; ?>
+        </<?= $wrapTag /* @noEscape */ ?>>
+    <?php endforeach; ?>
+</div>

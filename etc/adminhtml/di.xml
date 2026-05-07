@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="Iranimij\Badger\Ui\DataProvider\BadgerGridCollection"
+                 type="Iranimij\Badger\Model\ResourceModel\Badger\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">iranimij_badger_entity</argument>
+            <argument name="eventPrefix" xsi:type="string">iranimij_badger_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">badger_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Iranimij\Badger\Model\ResourceModel\Badger</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="iranimij_badger_listing_data_source" xsi:type="string">
+                    Iranimij\Badger\Ui\DataProvider\BadgerGridCollection
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Iranimij\Badger\Ui\DataProvider\Form\Modifier\Pool"
+                 type="Magento\Ui\DataProvider\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="visual" xsi:type="array">
+                    <item name="class" xsi:type="string">Iranimij\Badger\Ui\DataProvider\Form\Modifier\VisualModifier</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                </item>
+                <item name="conditions" xsi:type="array">
+                    <item name="class" xsi:type="string">Iranimij\Badger\Ui\DataProvider\Form\Modifier\ConditionsModifier</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Iranimij\Badger\Ui\DataProvider\BadgerFormDataProvider">
+        <arguments>
+            <argument name="pool" xsi:type="object">Iranimij\Badger\Ui\DataProvider\Form\Modifier\Pool</argument>
+        </arguments>
+    </type>
+</config>
