@@ -1,5 +1,6 @@
 {
     "name": "iranimij/badger",
+    "abandoned": "iranimij/openlabel",
     "description": "Iranimij Badger — dynamic product badges engine for Magento 2.",
     "type": "magento2-module",
     "license": "OSL-3.0",
