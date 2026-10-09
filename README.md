@@ -1,3 +1,5 @@
+> **Abandoned.** This package is no longer maintained. Use [OpenLabel](https://github.com/iranimij/openlabel) (`iranimij/openlabel`) instead: product labels for Magento 2 and Hyvä, free and MIT.
+
 # Iranimij_Badger — Product Labels for Magento 2
 
 A clean-room, PHP 8.1+ product-label module for Magento 2 (Community & Commerce). Attach text badges, custom images, or GD-generated shapes to any product across every surface of the store — category grid, product page, cart cross-sells, and related/upsell blocks.
